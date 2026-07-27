@@ -109,6 +109,9 @@ public final class EMCStorage implements MEStorage {
         var extracted = BigInteger.ZERO;
 
         var providers = getProvidersForExtraction(source);
+        if (providers.isEmpty()) {
+            return 0;
+        }
 
         while (!providers.isEmpty() && extracted.compareTo(rawEmc) < 0) {
             Collections.shuffle(providers);
@@ -244,6 +247,10 @@ public final class EMCStorage implements MEStorage {
         var totalEmc = itemEmc.multiply(BigInteger.valueOf(amount));
 
         var providers = getProvidersForExtraction(source);
+        if (providers.isEmpty()) {
+            return 0;
+        }
+
         var availableEmc = totalEmc.min(
                 providers.equals(service.getProviders())
                         ? service.getEmc()
@@ -297,6 +304,10 @@ public final class EMCStorage implements MEStorage {
     }
 
     private static void distributeEmc(BigInteger totalEmc, ArrayList<IKnowledgeProvider> providers) {
+        if (providers.isEmpty()) {
+            return;
+        }
+
         var divisor = BigInteger.valueOf(providers.size());
         var quotient = totalEmc.divide(divisor);
         var remainder = totalEmc.remainder(divisor).longValue();
