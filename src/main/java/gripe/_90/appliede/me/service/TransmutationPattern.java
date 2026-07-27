@@ -33,22 +33,26 @@ public final class TransmutationPattern implements IPatternDetails {
     private final AEItemKey definition;
 
     public TransmutationPattern(AEItemKey output, long amount, int job) {
-        tier = 1;
+        this.output = output;
+        this.amount = amount;
+        this.tier = 1;
+        this.job = job;
 
         var definition = AppliedE.DUMMY_EMC_ITEM.toStack();
         definition.set(
                 AppliedE.ENCODED_TRANSMUTATION_PATTERN.get(),
-                new Encoded(this.output = output, this.amount = amount, tier, this.job = job));
+                new Encoded(output, amount, tier, job));
         this.definition = AEItemKey.of(definition);
     }
 
     public TransmutationPattern(int tier) {
-        output = null;
-        amount = 1;
-        job = 0;
+        this.output = null;
+        this.amount = 1;
+        this.tier = tier;
+        this.job = 0;
 
         var definition = AppliedE.DUMMY_EMC_ITEM.toStack();
-        definition.set(AppliedE.ENCODED_TRANSMUTATION_PATTERN.get(), new Encoded(null, amount, this.tier = tier, job));
+        definition.set(AppliedE.ENCODED_TRANSMUTATION_PATTERN.get(), new Encoded(null, amount, tier, job));
         this.definition = AEItemKey.of(definition);
     }
 
@@ -83,13 +87,13 @@ public final class TransmutationPattern implements IPatternDetails {
         return Collections.singletonList(
                 output != null
                         ? new GenericStack(output, amount)
-                        : new GenericStack(EMCKey.of(tier - 1), AppliedE.TIER_LIMIT.longValue()));
+                        : new GenericStack(EMCKey.of(Math.max(1, tier - 1)), AppliedE.TIER_LIMIT.longValue()));
     }
 
     @Override
     public boolean equals(Object obj) {
         return obj instanceof TransmutationPattern pattern
-                && pattern.output.equals(output)
+                && Objects.equals(pattern.output, output)
                 && pattern.amount == amount
                 && pattern.tier == tier
                 && pattern.job == job;

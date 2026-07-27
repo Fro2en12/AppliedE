@@ -31,7 +31,7 @@ public final class EMCKey extends AEKey {
 
     private EMCKey(int tier) {
         if (tier <= 0) {
-            throw new IllegalArgumentException("Tier must be non-negative");
+            throw new IllegalArgumentException("Tier must be positive");
         }
 
         this.tier = tier;

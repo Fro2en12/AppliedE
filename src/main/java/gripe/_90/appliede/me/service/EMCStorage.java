@@ -131,7 +131,7 @@ public final class EMCStorage implements MEStorage {
 
                     extracted = extracted.add(currentEmc);
                     // provider exhausted, remove from current list to re-extract deficit from remaining providers
-                    providers.remove(provider);
+                    providers.remove(p--);
                 } else {
                     if (mode == Actionable.MODULATE) {
                         provider.setEmc(currentEmc.subtract(toExtractFrom));
@@ -282,7 +282,7 @@ public final class EMCStorage implements MEStorage {
                         provider.setEmc(BigInteger.ZERO);
                         withdrawn = withdrawn.add(currentEmc);
                         // provider exhausted, remove from current list to re-extract deficit from remaining providers
-                        providers.remove(provider);
+                        providers.remove(p--);
                     } else {
                         provider.setEmc(currentEmc.subtract(toWithdrawFrom));
                         withdrawn = withdrawn.add(toWithdrawFrom);
