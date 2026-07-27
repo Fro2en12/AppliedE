@@ -39,9 +39,7 @@ public final class TransmutationPattern implements IPatternDetails {
         this.job = job;
 
         var definition = AppliedE.DUMMY_EMC_ITEM.toStack();
-        definition.set(
-                AppliedE.ENCODED_TRANSMUTATION_PATTERN.get(),
-                new Encoded(output, amount, tier, job));
+        definition.set(AppliedE.ENCODED_TRANSMUTATION_PATTERN.get(), new Encoded(output, amount, tier, job));
         this.definition = AEItemKey.of(definition);
     }
 

@@ -269,7 +269,8 @@ public class EMCInterfaceLogic implements IActionHost, IGridTickable, IUpgradeab
             var inserted = storage.insert(slot, what, acquiredItems, Actionable.MODULATE);
 
             if (inserted < acquiredItems) {
-                throw new IllegalStateException("Bad attempt at managing inventory. Voided items: " + (acquiredItems - inserted));
+                throw new IllegalStateException(
+                        "Bad attempt at managing inventory. Voided items: " + (acquiredItems - inserted));
             }
 
             return true;
