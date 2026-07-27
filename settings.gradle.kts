@@ -28,9 +28,18 @@ run {
                 }
             }
 
+            // 本地仓库优先（CurseForge CDN CI 环境返回 403）
+            maven {
+                name = "Local Curse Maven"
+                url = uri(rootDir.toPath().resolve("libs").toUri())
+                content {
+                    includeGroup("curse.maven")
+                }
+            }
+
             maven {
                 name = "Curse Maven"
-                url = uri("https://cursemaven.com")
+                url = uri("https://www.cursemaven.com")
                 content {
                     includeGroup("curse.maven")
                 }
