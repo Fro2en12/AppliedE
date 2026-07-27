@@ -66,7 +66,7 @@ public final class TransmutationPattern implements IPatternDetails {
         }
 
         var inputs = new ArrayList<IInput>();
-        var itemEmc = IEMCProxy.INSTANCE.getValue(output.toStack());
+        var itemEmc = IEMCProxy.INSTANCE.getValue(output.getItem());
         var totalEmc = BigInteger.valueOf(itemEmc).multiply(BigInteger.valueOf(amount));
         var currentTier = 1;
 
